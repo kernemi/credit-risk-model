@@ -1,0 +1,11 @@
+data/
+__pycache__/
+.env
+.mlflow/
+*.pyc
+.ipynb_checkpoints/
+venv/
+.venv/
+env/
+ENV/
+*.log
