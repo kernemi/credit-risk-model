@@ -1,5 +1,6 @@
 ## Credit Scoring Business Understanding
 
+## Task1-Understanding Credit Risk
 ### Overview
 
 Credit risk represents the possibility that a borrower will fail to meet their contractual repayment obligations, leading to financial loss for the lender. In the context of this project, credit risk analysis is essential for evaluating customer creditworthiness and supporting responsible lending decisions, particularly in environments such as Buy Now Pay Later (BNPL) and alternative credit scoring where traditional credit histories may be limited or unavailable.
@@ -78,3 +79,15 @@ In practice, financial institutions often adopt a balanced approach, using inter
 ### Conclusion
 
 Understanding credit risk from both a business and regulatory perspective is foundational to building effective credit scoring systems. Basel II reinforces the need for accurate, interpretable, and well-governed models. While alternative data and advanced machine learning techniques offer improved predictive power, responsible credit risk modeling requires careful consideration of transparency, proxy target construction, and regulatory constraints. This project reflects these principles by prioritizing explainability, robustness, and business relevance in credit risk modeling.
+
+## Task2- Exploratory Data Analysis (EDA)
+- The step by step procedure and findings is on the 
+```
+notebooks/eda.ipynb
+```
+### Key EDA Insights
+1. Transaction amounts are heavily right-skewed.Most transactions have very small amounts.A small number of transactions have extremely large values.
+2. Majority of users transact infrequently.Very few customers are frequent users.
+3. Fraudulent transactions are rare or nearly zero.
+4. A small number of product categories dominate volume.
+5. Significant variance across customers.Some spend very little, others spend a lot.
