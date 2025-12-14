@@ -10,3 +10,5 @@ uvicorn
 pytest
 flake8
 xverse
+seaborn
+
