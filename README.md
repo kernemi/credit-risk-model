@@ -91,3 +91,83 @@ notebooks/eda.ipynb
 3. Fraudulent transactions are rare or nearly zero.
 4. A small number of product categories dominate volume.
 5. Significant variance across customers.Some spend very little, others spend a lot.
+
+## Task3– Feature Engineering Pipeline
+File: 
+```
+src/data_processing.py
+```
+Steps:
+1. Aggregate per customer: total_amount, avg_amount, txn_count, std_amount
+```
+df_grouped = df.groupby("CustomerId").agg(
+    total_amount=("Amount", "sum"),
+    avg_amount=("Amount", "mean"),
+    txn_count=("TransactionId", "count"),
+    std_amount=("Amount", "std")
+).reset_index()
+```
+2. Date-time features: Extract hour, day, month, year from TransactionStartTime.
+3. Categorical encoding: OneHotEncoder for ProductCategory, ChannelId, ProviderId, PricingStrategy.
+4. Handle missing values: SimpleImputer (median/mean for numerics, mode for categoricals).
+5. Scaling:StandardScaler for numeric features.
+6. Pipeline: Use ColumnTransformer + Pipeline to combine transformations.
+7. Weight of Evidence (WoE): Apply for Logistic Regression variant using xverse.WOE.
+Output: data/processed/features.csv.
+
+## Task 4 – Proxy Target Variable (RFM + Clustering)
+
+Steps:
+- Compute RFM metrics per customer:
+```
+Recency: Days since last transaction
+Frequency: Number of transactions
+Monetary: Total transaction amount
+```
+- Scale features → KMeans clustering (3 clusters)
+- Identify high-risk cluster: High recency, low frequency, low monetary
+- Create binary target is_high_risk
+- Merge target with processed features
+- Output: final_df ready for model training
+
+## Task 5 – Model Training & MLflow
+
+Steps:
+
+-Split X/y → train/test
+-Train at least 2 models: Logistic Regression, Random Forest/Gradient Boosting
+-Hyperparameter tuning (GridSearchCV)
+-Track experiments with MLflow: parameters, metrics, model artifact
+-Register best model in MLflow
+-Unit tests: check feature columns and is_high_risk column
+-Output: Trained model saved (best_model.pkl) and logged in MLflow
+
+## Task 6 – API, Docker & CI/CD
+
+FastAPI (src/api/main.py):
+```
+/ → health check
+/predict → returns risk_probability using trained model
+Input validated via Pydantic (InputData)
+```
+Docker:
+```
+Dockerfile → builds API with Python dependencies
+
+docker-compose.yml → runs container on port 8000
+```
+GitHub Actions CI/CD:
+```
+Installs dependencies
+
+Runs flake8 for linting
+
+Runs pytest for unit tests
+
+Fails build if lint/tests fail
+```
+
+## Optional Enhancements
+- MLflow model versioning to auto-load latest registered model in API
+-Logging & error handling in FastAPI endpoints
+- Extend CI/CD to build Docker image and push to registry (for production deployment)
