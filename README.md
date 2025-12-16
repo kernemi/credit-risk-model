@@ -135,11 +135,17 @@ Monetary: Total transaction amount
 Steps:
 
 -Split X/y → train/test
+
 -Train at least 2 models: Logistic Regression, Random Forest/Gradient Boosting
+
 -Hyperparameter tuning (GridSearchCV)
+
 -Track experiments with MLflow: parameters, metrics, model artifact
+
 -Register best model in MLflow
+
 -Unit tests: check feature columns and is_high_risk column
+
 -Output: Trained model saved (best_model.pkl) and logged in MLflow
 
 ## Task 6 – API, Docker & CI/CD
