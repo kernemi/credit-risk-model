@@ -1,4 +1,5 @@
 data/
+mlruns/
 __pycache__/
 .env
 .mlflow/
